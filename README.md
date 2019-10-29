@@ -126,6 +126,7 @@ restApi:
         method: PUT
         proxyURI: https://example.com/users
         authorizer: ${auth.arn}
+        apiKeyRequired: false
 ```
 
 #### Extending REST APIs

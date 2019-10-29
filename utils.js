@@ -221,7 +221,7 @@ const createMethod = async ({ apig, apiId, endpoint }) => {
     httpMethod: endpoint.method,
     resourceId: endpoint.id,
     restApiId: apiId,
-    apiKeyRequired: false
+    apiKeyRequired:  (typeof endpoint.apiKeyRequired !== "undefined") && endpoint.apiKeyRequired
   }
 
   if (endpoint.authorizerId) {
