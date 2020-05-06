@@ -8,11 +8,12 @@ stage: dev
 
 inputs:
   endpoints:
-    - path: /foobar
+    - path: /test
       method: GET
       function: ${output:dev:test-app:test-lambda-integration.arn}
-    # - path: /users
-    #   method: POST
-    #   function: ${output:dev:test-app:test-lambda-integration.arn}
-    # - path: /users
-    #   method: PUT
+    - path: /test
+      method: POST
+      function: ${output:dev:test-app:test-lambda-integration.arn}
+    - path: /test
+      method: PUT
+      function: ${output:dev:test-app:test-lambda-integration.arn}

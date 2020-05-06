@@ -4,7 +4,6 @@ org: oliver
 app: test-app
 name: test-lambda-integration
 stage: dev
-# inputs:
 
 inputs:
   src: ./
