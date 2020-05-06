@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "serverless registry publish --dev",
     "deploy": "cd test-components && serverless deploy --all --debug && cd ..",
-    "remove": "cd test-components && serverless remove --all --debug && cd ..",
+    "teardown": "cd test-components && serverless remove --all --debug && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --fix --cache"
   },
