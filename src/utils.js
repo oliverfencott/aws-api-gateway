@@ -157,7 +157,7 @@ const validateEndpointObject = ({ endpoint, apiId, stage, region }) => {
 const validateEndpoint = async ({ apig, apiId, endpoint, state, stage, region }) => {
   const validatedEndpoint = validateEndpointObject({ endpoint, apiId, stage, region })
 
-  console.log(`Validated endpoint URL: ${validatedEndpoint.url}`)
+  console.log(`Validating endpoint URL: ${validatedEndpoint.url}`)
 
   if (await endpointExists({ apig, apiId, endpoint: validatedEndpoint })) {
     if (!myEndpoint(state, validatedEndpoint)) {

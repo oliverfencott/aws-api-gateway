@@ -1,14 +1,12 @@
 {
   "name": "@serverless/aws-api-gateway",
   "version": "4.1.0",
-  "main": "./serverless.js",
+  "main": "./src/serverless.js",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "dev": "serverless registry publish --dev",
-    "deploy": "cd test-components && serverless deploy --all --debug && cd ..",
-    "teardown": "cd test-components && serverless remove --all --debug && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --fix --cache"
   },
@@ -16,7 +14,6 @@
   "license": "Apache",
   "dependencies": {
     "@serverless/core": "^1.0.0",
-    "@serverless/platform-client": "^0.25.7",
     "aws-sdk": "^2.0.0",
     "p-retry": "^4.1.0"
   },
