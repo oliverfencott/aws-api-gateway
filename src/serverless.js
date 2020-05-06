@@ -30,12 +30,9 @@ const defaults = {
 }
 
 class AwsApiGateway extends Component {
-  async _deploy(inputs = {}) {
-    log(this)
-    return {}
-  }
-
   async deploy(inputs = {}) {
+    log(this)
+
     log('Deploying')
 
     const config = { ...defaults, ...inputs }
@@ -45,9 +42,6 @@ class AwsApiGateway extends Component {
     const { name, description, region, stage, endpointTypes } = config
 
     log(`Starting API Gateway deployment with name ${name} in the ${region} region`)
-
-    // todo quick fix for array of objects in yaml issue
-    // config.endpoints = Object.keys(config.endpoints).map((e) => config.endpoints[e])
 
     const apig = new AWS.APIGateway({
       region,
