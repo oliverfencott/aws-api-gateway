@@ -31,8 +31,6 @@ const defaults = {
 
 class AwsApiGateway extends Component {
   async deploy(inputs = {}) {
-    log(this)
-
     log('Deploying')
 
     const config = { ...defaults, ...inputs }
