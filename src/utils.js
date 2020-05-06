@@ -160,12 +160,16 @@ const validateEndpoint = async ({ apig, apiId, endpoint, state, stage, region })
   console.log(`Validated endpoint URL: ${validatedEndpoint.url}`)
 
   if (await endpointExists({ apig, apiId, endpoint: validatedEndpoint })) {
-    // console.log()
     if (!myEndpoint(state, validatedEndpoint)) {
       throw Error(
         `endpoint ${validatedEndpoint.method} ${validatedEndpoint.path} already exists in provider`
       )
     }
+  } else {
+    console.log(
+      `A lambda for "${validatedEndpoint.method} ${validatedEndpoint.path}" does not exist.`
+    )
+    console.log(`You may need to manually deploy lambdas first`)
   }
 
   return validatedEndpoint
