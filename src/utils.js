@@ -1,6 +1,13 @@
 const pRetry = require('p-retry')
 const { utils } = require('@serverless/core')
 
+const log = (arg) => (console.log(arg), arg)
+
+const generateId = () =>
+  Math.random()
+    .toString(36)
+    .substring(6)
+
 const retry = (fn, opts = {}) => {
   return pRetry(
     async () => {
@@ -51,11 +58,13 @@ const createApi = async ({ apig, name, description, endpointTypes }) => {
 
 const getPathId = async ({ apig, apiId, endpoint }) => {
   // todo this called many times to stay up to date. Is it worth the latency?
-  const existingEndpoints = (await apig
-    .getResources({
-      restApiId: apiId
-    })
-    .promise()).items
+  const existingEndpoints = (
+    await apig
+      .getResources({
+        restApiId: apiId
+      })
+      .promise()
+  ).items
 
   if (!endpoint) {
     const rootResourceId = existingEndpoints.find(
@@ -94,15 +103,9 @@ const endpointExists = async ({ apig, apiId, endpoint }) => {
   }
 }
 
-const myEndpoint = (state, endpoint) => {
-  if (
-    state.endpoints &&
-    state.endpoints.find((e) => e.method === endpoint.method && e.path === endpoint.path)
-  ) {
-    return true
-  }
-  return false
-}
+const myEndpoint = (state, endpoint) =>
+  Array.isArray(state.endpoints) &&
+  state.endpoints.find((e) => e.method === endpoint.method && e.path === endpoint.path)
 
 const validateEndpointObject = ({ endpoint, apiId, stage, region }) => {
   const validMethods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS', 'ANY']
@@ -154,7 +157,10 @@ const validateEndpointObject = ({ endpoint, apiId, stage, region }) => {
 const validateEndpoint = async ({ apig, apiId, endpoint, state, stage, region }) => {
   const validatedEndpoint = validateEndpointObject({ endpoint, apiId, stage, region })
 
+  console.log(`Validated endpoint URL: ${validatedEndpoint.url}`)
+
   if (await endpointExists({ apig, apiId, endpoint: validatedEndpoint })) {
+    // console.log()
     if (!myEndpoint(state, validatedEndpoint)) {
       throw Error(
         `endpoint ${validatedEndpoint.method} ${validatedEndpoint.path} already exists in provider`
@@ -166,13 +172,9 @@ const validateEndpoint = async ({ apig, apiId, endpoint, state, stage, region })
 }
 
 const validateEndpoints = async ({ apig, apiId, endpoints, state, stage, region }) => {
-  const promises = []
-
-  for (const endpoint of endpoints) {
-    promises.push(validateEndpoint({ apig, apiId, endpoint, state, stage, region }))
-  }
-
-  return Promise.all(promises)
+  return Promise.all(
+    endpoints.map((endpoint) => validateEndpoint({ apig, apiId, endpoint, state, stage, region }))
+  )
 }
 
 const createPath = async ({ apig, apiId, endpoint }) => {
@@ -221,7 +223,7 @@ const createMethod = async ({ apig, apiId, endpoint }) => {
     httpMethod: endpoint.method,
     resourceId: endpoint.id,
     restApiId: apiId,
-    apiKeyRequired:  (typeof endpoint.apiKeyRequired !== "undefined") && endpoint.apiKeyRequired
+    apiKeyRequired: typeof endpoint.apiKeyRequired !== 'undefined' && endpoint.apiKeyRequired
   }
 
   if (endpoint.authorizerId) {
@@ -544,6 +546,7 @@ const removeOutdatedEndpoints = async ({ apig, apiId, endpoints, stateEndpoints 
 }
 
 module.exports = {
+  log,
   validateEndpointObject,
   validateEndpoint,
   validateEndpoints,
@@ -569,5 +572,6 @@ module.exports = {
   removeAuthorizers,
   removeApi,
   removeOutdatedEndpoints,
-  retry
+  retry,
+  generateId
 }

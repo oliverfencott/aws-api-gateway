@@ -1,0 +1,18 @@
+component: aws-api-gateway-test@dev
+
+org: oliver
+app: test-app
+name: aws-api-gateway-test-component
+stage: dev
+# inputs:
+
+inputs:
+  endpoints:
+    - path: /foobar
+      method: GET
+      function: ${output:dev:test-app:test-lambda-integration.arn}
+    # - path: /users
+    #   method: POST
+    #   function: ${output:dev:test-app:test-lambda-integration.arn}
+    # - path: /users
+    #   method: PUT
