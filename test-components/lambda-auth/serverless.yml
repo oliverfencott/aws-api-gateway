@@ -2,7 +2,7 @@ component: aws-lambda
 
 org: oliver
 app: test-app
-name: test-lambda-integration
+name: test-lambda-auth
 
 inputs:
   src: ./

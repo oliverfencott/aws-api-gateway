@@ -3,17 +3,13 @@ component: aws-api-gateway-test@dev
 org: oliver
 app: test-app
 name: aws-api-gateway-test-component
-stage: dev
-# inputs:
 
 inputs:
   endpoints:
-    - path: /test
+    - path: /test-1
       method: GET
-      function: ${output:dev:test-app:test-lambda-integration.arn}
-    - path: /test
-      method: POST
-      function: ${output:dev:test-app:test-lambda-integration.arn}
-    - path: /test
-      method: PUT
-      function: ${output:dev:test-app:test-lambda-integration.arn}
+      function: ${output:${stage}:${app}:test-lambda-integration.arn}
+    - path: /test-2
+      method: GET
+      function: ${output:${stage}:${app}:test-lambda-integration.arn}
+      authorizer: ${output:${stage}:${app}:test-lambda-auth.arn}

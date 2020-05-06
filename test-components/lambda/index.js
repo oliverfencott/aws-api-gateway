@@ -2,7 +2,7 @@ const handler = (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      hello: `world from method: "${event.httpMethod}"`
+      hello: `from "${event.path}"`
     })
   }
 }
