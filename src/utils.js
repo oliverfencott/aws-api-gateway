@@ -169,7 +169,7 @@ const validateEndpoint = async ({ apig, apiId, endpoint, state, stage, region })
     console.log(
       `A lambda for "${validatedEndpoint.method} ${validatedEndpoint.path}" does not exist.`
     )
-    console.log(`You may need to manually deploy lambdas first`)
+    console.log(`You may need to manually deploy lambdas first.`)
   }
 
   return validatedEndpoint
