@@ -1,7 +1,7 @@
 # serverless.component.yml
 
-name: aws-api-gateway-test # Required. The name of the Component
-version: 0.0.0 # Required. The version of the Component
+name: vidglo-aws-api-gateway # Required. The name of the Component
+version: 0.1.0 # Required. The version of the Component
 author: oliver # Required. The author of the Component
 org: oliver # Required. The Serverless Framework org which owns this Component
 main: ./src # Required. The directory which contains the Component code
