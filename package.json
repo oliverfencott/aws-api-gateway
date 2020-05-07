@@ -1,11 +1,13 @@
 {
   "name": "@serverless/aws-api-gateway",
   "version": "4.1.0",
-  "main": "./serverless.js",
+  "main": "./src/serverless.js",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
+    "push": "serverless registry publish",
+    "dev": "serverless registry publish --dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --fix --cache"
   },
